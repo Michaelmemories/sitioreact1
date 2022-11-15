@@ -8,7 +8,7 @@ const AppForm = (props) => {
     ///////////////////////////////////////////////////////////////
     ////////////////////CREAR - fnCrear - Guardar//////////////////
     ///////////////////////////////////////////////////////////////
-    const camposRegistro = {nombre:"", edad:"", genero:""};   //estructura tbL
+    const camposRegistro = {url:"", nombre:"", descripcion:"",};   //estructura tbL
     const [objeto, setObjeto] = useState(camposRegistro);     //Tabla u objeto
 
     const hanleStatusChange = (e) => {                        //Manejo cambios en input...
@@ -36,8 +36,8 @@ const AppForm = (props) => {
     }
     /////////////////////////////VALIDACIÓN////////////////////////
     const validarForm = () => {
-        if(objeto.nombre===""|| /^\s+$/.test(objeto.nombre)){
-            alert("Escriba nombres...");
+        if(objeto.url===""|| /^\s+$/.test(objeto.url)){
+            alert("Escriba url...");
             return false;                                     //Si no tiene texto
         }
         return true;                                          //Si tiene texto
@@ -59,14 +59,14 @@ const AppForm = (props) => {
         <div style={{background:"orange", padding:"10px", textAlign:"center"}}>
         <h1>AppForm.js</h1>
         <form onSubmit={handleSubmit}>
-            <input type="text" name="nombre" placeholder="URL..."
+            <input type="text" name="url" placeholder="URL..."
+            onChange={hanleStatusChange} value={objeto.url} /> <br/>
+
+            <input type="text" name="nombre" placeholder="Nombre..."
             onChange={hanleStatusChange} value={objeto.nombre} /> <br/>
 
-            <input type="text" name="edad" placeholder="Nombre..."
-            onChange={hanleStatusChange} value={objeto.edad} /> <br/>
-
-            <input type="text" name="genero" placeholder="Descripción..."
-            onChange={hanleStatusChange} value={objeto.genero} /> <br/>
+            <input type="text" name="descripcion" placeholder="Descripción..."
+            onChange={hanleStatusChange} value={objeto.descripcion} /> <br/>
 
             <button>
                 {props.idActual === ""? "Guardar" : "Actualizar"}
