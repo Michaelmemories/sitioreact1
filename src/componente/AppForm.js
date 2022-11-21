@@ -23,7 +23,7 @@ const AppForm = (props) => {
         if(props.idActual === ""){
             //console.log(props.idActual);                    //Verificar idActual
             if(validarForm()){                                //Verificar
-                addDoc(collection(db, 'favorito'), objeto);    //CREAR
+                addDoc(collection(db, 'favoritos'), objeto);    //CREAR
                 console.log('Se guardo...');                  //Msj
                 props.fnRead();                               //Actualizar LECTURA BD
             }else{
@@ -56,7 +56,7 @@ const AppForm = (props) => {
     //console.log(objeto);
 
     return (
-        <div style={{background:"orange", padding:"10px", textAlign:"center"}}>
+        <div style={{background:"Moccasin", padding:"10px", textAlign:"center"}}>
         <h1>AppForm.js</h1>
         <form onSubmit={handleSubmit}>
             <input type="text" name="url" placeholder="URL..."

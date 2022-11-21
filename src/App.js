@@ -30,15 +30,17 @@ function App() {
   }
 
   return (
-    <div style={{width:"350px", background:"greenyellow", padding:"10px"}} >
-      <h1>READ / DELETE</h1>
-      <h1>sitiocopia1 (App.Js)</h1>
+    <center>
+    <div style={{width:"350px", background:"MediumSpringGreen", padding:"10px"}} >
+      
+      <h1><center>(App.Js)</center></h1>
       <AppForm {...{idActual, setIdActual, fnRead}} />
       {
         //docsBD.map( (p) => 
         //)
       }
     </div>
+    </center>
   );
 }
 
