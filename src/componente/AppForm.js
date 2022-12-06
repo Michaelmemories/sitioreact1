@@ -19,41 +19,48 @@ const AppForm = (props) => {
         //console.log(objeto);                                //Ver en tiempo real
     }
 
-    const handleSubmit = async (e) => {  
-        try{                     //Manejo submit (emvio)
-        e.preventDefault();                                   //evitar por defecto (false)
-        ////////// REGISTRAR O ACTUALIZAR ////////////////////
-        if(props.idActual === ""){
-            //console.log(props.idActual);                    //Verificar idActual
-            if(validarForm()){                                //Verificar
-                addDoc(collection(db, 'favoritos'), objeto);    //CREAR
-                console.log('Se guardo...');                  //Msj
-                props.fnRead();                               //Actualizar LECTURA BD
+    const handleSubmit = async (e) => {               //maneja submit (envio)
+        try {
+            e.preventDefault();                       //evitar por defecto (false)
+            ////////// Guardar////////////////////////////////
+            if(props.idActual === ""){
+                //console.log(props.idActual);        //Verificar idActual
+                if(validarForm()){                    //Validar
+                    addDoc(collection(db, 'favoritos'), objeto);      //CREAR
+                    //console.log('Se guardó...');      //Msj
+                    toast("El registro se guardo con éxito...", {
+                        type:'success',
+                        autoClose: 2000
+                    })
+                    //props.fnRead();  //No es necesario se cambio fn en useEffect
+                }else{
+                    console.log('No se guardó...');
+                }
             }else{
-                console.log('No se guardo...');
+                ////////// ACTUALIZAR //////////////////////////////////////////
+                //console.log(objeto);
+                await updateDoc(doc(collection(db, "favoritos"), props.idActual), objeto);
+                //console.log("Se actualizó... ");
+                toast("El registro fue actualizado...", {
+                    type:'info',
+                    autoClose: 2000
+                })
+                //props.fnRead();           //No es necesario se cambio fn en useEffect
+                props.setIdActual('');                //Limpiar pedido
             }
-        }else{
-            ////////////////ACTUALIZAR/////////////////////////
-            //console.log(objeto);
-            //console.log('ACTUALIZAR REGISTRO...'+props.idActual);
-            await updateDoc(doc(collection(db, "favoritos"), props.idActual), objeto);
-            //console.log("Se actualizó...");
-            toast("Se ACTUALIZO con exito...", {
-                type:'info',
-                autoClose: 2000
-            })
-            //props.fnRead();
-            props.setIdActual('');
-        }
-        setObjeto(camposRegistro);                             //Limpiar objeto
+            setObjeto(camposRegistro);                //limpiar objeto
         } catch (error) {
-            console.log("Error en CREAR O UPDATE: ", error);
+            console.log("Error en CREAR o UPDATE: ", error);
         }
     }
     /////////////////////////////VALIDACIÓN////////////////////////
     const validarForm = () => {
         if(objeto.url===""|| /^\s+$/.test(objeto.url)){
-            alert("Escriba url...");
+            //alert("Escriba url...");
+            toast("Ingrese URL...", {
+                type:'warning',
+                autoClose: 2000
+            })
             return false;                                     //Si no tiene texto
         }
         return true;                                          //Si tiene texto
